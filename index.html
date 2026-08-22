@@ -1080,14 +1080,16 @@
 <div class="container">
 
   <!-- STANDARD OFFERS -->
-  <h2 class="section-title">🪙 OFFRES DISPONIBLES</h2>
+  <h2 class="section-title" id="offerSectionTitle">🪙 OFFRES DISPONIBLES</h2>
   <div class="cards-grid" id="offerCards"></div>
 
   <div class="divider"></div>
 
   <!-- PROMO OFFERS -->
-  <h2 class="section-title" style="color:var(--red);">🔥 PROMO SPÉCIALE</h2>
-  <div class="cards-grid" id="promoCards"></div>
+  <div id="promoSection">
+    <h2 class="section-title" style="color:var(--red);">🔥 PROMO SPÉCIALE</h2>
+    <div class="cards-grid" id="promoCards"></div>
+  </div>
 
   <!-- ADMIN SÉLECTIONNÉ -->
   <p class="selected-admin-bar">Admin sélectionné : <b id="selectedAdminName"></b><a id="selectedAdminFb" href="#" target="_blank" rel="noopener">Facebook ↗</a></p>
@@ -1177,6 +1179,16 @@ const promoOffers = [
   { coins: 1630, price: 45000 },
 ];
 
+const steamOffers = [
+  { coins: 130,   price: 10000  },
+  { coins: 520,   price: 27000  },
+  { coins: 1050,  price: 47500  },
+  { coins: 2150,  price: 89000  },
+  { coins: 3300,  price: 130500 },
+  { coins: 5800,  price: 213500 },
+  { coins: 12000, price: 421500 },
+];
+
 function formatPrice(p) {
   return p.toLocaleString('fr-FR') + ' Ar';
 }
@@ -1225,9 +1237,22 @@ function buildCard(offer, isPromo) {
 function renderCards() {
   const sc = document.getElementById('offerCards');
   const pc = document.getElementById('promoCards');
+  const promoSection = document.getElementById('promoSection');
+  const offerTitle = document.getElementById('offerSectionTitle');
   sc.innerHTML = ''; pc.innerHTML = '';
-  standardOffers.forEach(o => sc.appendChild(buildCard(o, false)));
-  promoOffers.forEach(o => pc.appendChild(buildCard(o, true)));
+
+  const isSteam = selectedPlatform && selectedPlatform.id === 'steam';
+
+  if (isSteam) {
+    offerTitle.textContent = '🪙 OFFRES DISPONIBLES (STEAM)';
+    steamOffers.forEach(o => sc.appendChild(buildCard(o, false)));
+    promoSection.style.display = 'none';
+  } else {
+    offerTitle.textContent = '🪙 OFFRES DISPONIBLES';
+    standardOffers.forEach(o => sc.appendChild(buildCard(o, false)));
+    promoOffers.forEach(o => pc.appendChild(buildCard(o, true)));
+    promoSection.style.display = '';
+  }
 }
 
 function renderSellers() {
@@ -1367,6 +1392,7 @@ function chooseAdmin(index) {
   selectedAdmin = filteredAdmins[index];
   document.getElementById('adminGate').style.display = 'none';
   document.getElementById('mainSite').style.display = 'block';
+  renderCards();
 
   document.getElementById('selectedAdminName').textContent = selectedAdmin.name;
   const fbLink = document.getElementById('selectedAdminFb');
