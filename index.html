@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vente Coins efootball Madagascar</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C98D00;
+    --gold2: #E6820A;
+    --blue: #f4f6fb;
+    --blue2: #e7ecf6;
+    --cyan: #0089a8;
+    --purple: #6d28d9;
+    --green: #00994f;
+    --red: #d81f4b;
+    --white: #1b2338;
+    --ink-soft: rgba(27,35,56,.55);
+    --ink-faint: rgba(27,35,56,.3);
+    --surface: #ffffff;
+    --surface2: #fbfcfe;
+    --border-soft: rgba(27,35,56,.1);
+    --promo-a: #fff5f7;
+    --promo-b: #ffeef1;
+    --rules-a: #fff8ec;
+    --rules-b: #fff2dc;
+  }
+
+  body.dark-mode {
+    --blue: #0b0f1a;
+    --blue2: #131a2b;
+    --white: #eef1f8;
+    --ink-soft: rgba(238,241,248,.6);
+    --ink-faint: rgba(238,241,248,.28);
+    --surface: #161d2e;
+    --surface2: #1a2234;
+    --border-soft: rgba(238,241,248,.12);
+    --promo-a: #2a1620;
+    --promo-b: #241318;
+    --rules-a: #2a2210;
+    --rules-b: #241d0d;
+  }
+
+  body, body::before, .coin-card, .gate-select-card, .rules-box, .custom-select, .theme-toggle {
+    transition: background .3s, background-color .3s, border-color .3s, color .3s;
+  }
+
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--blue);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── SUBTLE BG ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(124,58,237,.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(0,137,168,.06) 0%, transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    padding: 50px 20px 30px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .logo-ring {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .logo-icon {
+    font-size: 3rem;
+    filter: drop-shadow(0 0 16px var(--gold));
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2rem, 6vw, 3.8rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--gold), var(--gold2), #8a5c00, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    letter-spacing: 2px;
+    line-height: 1.1;
+  }
+
+  h1 span {
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin-top: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    background: rgba(0,229,255,.1);
+    border: 1px solid rgba(0,229,255,.3);
+    border-radius: 50px;
+    padding: 6px 18px;
+    font-size: .85rem;
+    color: var(--cyan);
+    letter-spacing: 1px;
+  }
+
+  .badge.gold-badge {
+    background: rgba(255,215,0,.1);
+    border-color: rgba(255,215,0,.4);
+    color: var(--gold);
+  }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 50px 0 28px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    position: relative;
+  }
+
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--cyan));
+    margin: 8px auto 0;
+    border-radius: 3px;
+  }
+
+  /* ── CARDS GRID ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 60px;
+  }
+
+  .coin-card {
+    background: linear-gradient(145deg, var(--surface), var(--surface2));
+    border: 1px solid var(--border-soft);
+    box-shadow: 0 4px 16px rgba(27,35,56,.06);
+    border-radius: 18px;
+    padding: 28px 20px 22px;
+    text-align: center;
+    position: relative;
+    transition: transform .3s, border-color .3s, box-shadow .3s;
+    overflow: hidden;
+  }
+
+  .coin-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(255,215,0,.04), transparent 60%);
+    opacity: 0;
+    transition: opacity .3s;
+    pointer-events: none;
+  }
+
+  .coin-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,215,0,.6);
+    box-shadow: 0 12px 40px rgba(255,215,0,.15), 0 0 0 1px rgba(255,215,0,.2);
+  }
+
+  .coin-card:hover::before { opacity: 1; }
+
+  .coin-card.promo {
+    border-color: rgba(216,31,75,.35);
+    background: linear-gradient(145deg, var(--promo-a), var(--promo-b));
+  }
+
+  .coin-card.promo:hover {
+    border-color: var(--red);
+    box-shadow: 0 12px 40px rgba(255,56,96,.2);
+  }
+
+  .promo-label {
+    position: absolute;
+    top: 12px; right: -28px;
+    background: var(--red);
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-size: .65rem;
+    font-weight: 700;
+    padding: 4px 36px;
+    transform: rotate(35deg);
+    letter-spacing: 1px;
+  }
+
+  .coin-icon {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 8px var(--gold));
+    display: block;
+  }
+
+  .coin-amount {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .coin-label {
+    font-size: .9rem;
+    color: var(--ink-soft);
+    letter-spacing: 2px;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+
+  .coin-price {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin: 14px 0 18px;
+  }
+
+  .coin-price .currency { color: var(--cyan); font-size: .9rem; }
+
+  .btn-buy {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all .25s;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    position: relative;
+    z-index: 2;
+  }
+
+  .btn-buy:hover { transform: scale(1.04); box-shadow: 0 0 24px rgba(37,211,102,.5); }
+
+  .buy-row { display: flex; gap: 8px; }
+  .buy-row .btn-buy { flex: 1; padding: 14px 6px; font-size: .72rem; }
+
+  .btn-fb {
+    flex: 0 0 48px;
+    border: none;
+    border-radius: 10px;
+    background: #1877F2;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .25s;
+  }
+
+  .btn-fb:hover { transform: scale(1.08); box-shadow: 0 0 20px rgba(24,119,242,.5); }
+
+  /* ── DROPDOWN ADMIN ── */
+  .admin-select-wrap {
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* ── CUSTOM DROPDOWN ADMIN ── */
+  .custom-select {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--surface2);
+    border: 1.5px solid rgba(201,141,0,.35);
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s;
+    margin-bottom: 10px;
+    user-select: none;
+  }
+
+  .custom-select:hover { border-color: rgba(201,141,0,.6); }
+
+  .custom-select.open { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(201,141,0,.12); }
+
+  .custom-select-avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .custom-select-label {
+    flex: 1;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .custom-select-label.placeholder { color: var(--ink-faint); font-weight: 500; }
+
+  .custom-select-arrow {
+    color: var(--gold);
+    font-size: 1rem;
+    transition: transform .2s;
+    flex-shrink: 0;
+  }
+
+  .custom-select.open .custom-select-arrow { transform: rotate(180deg); }
+
+  .custom-select-options {
+    display: none;
+    position: relative;
+    max-height: 280px;
+    overflow-y: auto;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    box-shadow: 0 16px 40px rgba(27,35,56,.14);
+    margin-bottom: 14px;
+    padding: 6px;
+  }
+
+  .custom-select-options.open { display: block; animation: dropFade .18s ease; }
+
+  @keyframes dropFade {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .custom-select-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .15s;
+  }
+
+  .custom-select-option:hover { background: rgba(0,137,168,.07); }
+
+  .custom-select-option.selected {
+    background: rgba(201,141,0,.1);
+  }
+
+  .custom-select-option .opt-avatar {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .custom-select-option .opt-name {
+    flex: 1;
+    font-size: .92rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .custom-select-option .opt-check {
+    color: var(--green);
+    font-size: .95rem;
+    opacity: 0;
+  }
+
+  .custom-select-option.selected .opt-check { opacity: 1; }
+
+  .btn-validate-admin {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: #ffffff;
+    transition: transform .2s, box-shadow .2s;
+  }
+
+  .btn-validate-admin:hover { transform: scale(1.02); box-shadow: 0 0 24px rgba(201,141,0,.35); }
+
+  .gate-divider {
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: .8rem;
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+  }
+
+  /* ── SELLERS FOOTER ── */
+  .sellers-section {
+    background: linear-gradient(180deg, transparent, rgba(0,137,168,.03));
+    border-top: 1px solid rgba(0,137,168,.15);
+    padding: 50px 20px 40px;
+  }
+
+  .sellers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .seller-card {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    box-shadow: 0 2px 10px rgba(27,35,56,.05);
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: border-color .2s, background .2s;
+  }
+
+  .seller-card:hover {
+    border-color: rgba(0,137,168,.3);
+    background: rgba(0,137,168,.04);
+  }
+
+  .fb-icon {
+    width: 32px; height: 32px;
+    background: #1877F2;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .seller-name {
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .verified-icon { color: var(--green); font-size: 1rem; margin-left: auto; flex-shrink: 0; }
+
+  /* ── CONTACT BAR ── */
+  .contact-bar {
+    background: rgba(0,153,79,.06);
+    border: 1px solid rgba(0,153,79,.25);
+    border-radius: 16px;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 40px auto;
+    max-width: 500px;
+    cursor: pointer;
+    transition: all .25s;
+  }
+
+  .contact-bar:hover { background: rgba(0,153,79,.12); border-color: rgba(0,153,79,.5); }
+
+  .contact-bar .wa-icon { font-size: 2rem; }
+
+  .contact-text { text-align: left; }
+
+  .contact-text p:first-child { font-size: .8rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 2px; }
+
+  .contact-text p:last-child { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #128C4E; font-weight: 700; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: .8rem;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--border-soft);
+    letter-spacing: 1px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,215,0,.3), transparent);
+    margin: 0 40px;
+  }
+
+  @media(max-width:600px) {
+    .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .coin-amount { font-size: 1.5rem; }
+    .coin-price { font-size: 1.1rem; }
+  }
+
+  /* ── ADMIN GATE ── */
+  #adminGate {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: var(--blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+    padding: 50px 16px 60px;
+  }
+
+  .gate-hero {
+    text-align: center;
+    max-width: 560px;
+    margin-bottom: 34px;
+  }
+
+  .gate-hero-icon {
+    font-size: 3.4rem;
+    display: inline-block;
+    filter: drop-shadow(0 0 16px rgba(201,141,0,.4));
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .gate-hero-title {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.5rem, 5.5vw, 2.4rem);
+    line-height: 1.25;
+    color: var(--white);
+    margin: 12px 0 10px;
+  }
+
+  .gate-hero-title span {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gate-hero-tagline {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    letter-spacing: .5px;
+    margin-bottom: 6px;
+  }
+
+  .rules-box {
+    width: 100%;
+    max-width: 460px;
+    background: linear-gradient(145deg, var(--rules-a), var(--rules-b));
+    border: 1px solid rgba(201,141,0,.35);
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin: 0 0 20px;
+    text-align: left;
+  }
+
+  .rules-box h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: .95rem;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .rules-box p.rules-highlight {
+    font-weight: 700;
+    color: var(--red);
+    font-size: .9rem;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .rules-box ul {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--ink-soft);
+    font-size: .85rem;
+    line-height: 1.5;
+  }
+
+  .rules-box ul li { margin-bottom: 4px; }
+
+  .certified-admins-toggle {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed rgba(201,141,0,.3);
+  }
+
+  .certified-admins-toggle summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: .85rem;
+    color: var(--gold);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .certified-admins-toggle summary::-webkit-details-marker { display: none; }
+
+  .certified-admins-toggle summary::after {
+    content: '▾';
+    transition: transform .2s;
+  }
+
+  .certified-admins-toggle[open] summary::after { transform: rotate(180deg); }
+
+  .certified-admins-list {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 8px;
+  }
+
+  .certified-admins-list li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .82rem;
+    color: var(--ink-soft);
+    background: var(--surface2);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    padding: 6px 10px;
+  }
+
+  .certified-admins-list li::before {
+    content: '✔';
+    color: var(--green);
+    font-size: .75rem;
+    flex-shrink: 0;
+  }
+
+  .gate-select-card {
+    width: 100%;
+    max-width: 460px;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    box-shadow: 0 12px 40px rgba(27,35,56,.08);
+    border-radius: 22px;
+    padding: 34px 28px;
+  }
+
+  .gate-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.2rem, 5vw, 1.7rem);
+    font-weight: 900;
+    text-align: center;
+    background: linear-gradient(135deg, var(--gold), var(--gold2), #8a5c00, var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .gate-subtitle {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: .9rem;
+    letter-spacing: .5px;
+    margin-bottom: 26px;
+  }
+
+  .admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .admin-card {
+    background: linear-gradient(145deg, var(--surface), var(--surface2));
+    border: 1px solid rgba(201,141,0,.25);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+  }
+
+  .admin-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,215,0,.6);
+    box-shadow: 0 10px 30px rgba(255,215,0,.15);
+  }
+
+  .admin-avatar {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0 auto 12px;
+  }
+
+  .admin-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .admin-verified {
+    color: var(--green);
+    font-size: .8rem;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+
+  .btn-choose-admin {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: white;
+    transition: transform .2s, box-shadow .2s;
+  }
+
+  .btn-choose-admin:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(37,211,102,.5); }
+
+  #mainSite { display: none; }
+
+  .selected-admin-bar {
+    max-width: 500px;
+    margin: 0 auto 10px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: .85rem;
+    letter-spacing: 1px;
+  }
+
+  .selected-admin-bar b { color: var(--gold); }
+
+  .selected-admin-bar a {
+    color: var(--cyan);
+    text-decoration: none;
+    margin-left: 8px;
+  }
+
+  .btn-change-offer {
+    display: flex;
+    margin: 0 auto 30px;
+  }
+
+  /* ── PLATFORM GATE ── */
+  #platformGate {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: var(--blue);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+    padding: 50px 16px 60px;
+  }
+
+  .platform-list {
+    width: 100%;
+    max-width: 460px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .platform-option {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    box-shadow: 0 4px 16px rgba(27,35,56,.06);
+    border-radius: 16px;
+    padding: 18px 22px;
+    cursor: pointer;
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+  }
+
+  .platform-option:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,215,0,.6);
+    box-shadow: 0 10px 30px rgba(255,215,0,.15);
+  }
+
+  .platform-icon {
+    font-size: 2rem;
+    width: 54px; height: 54px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .platform-info { flex: 1; text-align: left; }
+
+  .platform-name {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--white);
+  }
+
+  .platform-count {
+    font-size: .8rem;
+    color: var(--ink-soft);
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  .platform-arrow { font-size: 1.3rem; color: var(--gold); flex-shrink: 0; }
+
+  .btn-back-platform {
+    background: none;
+    border: none;
+    color: var(--cyan);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    font-size: .85rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+  }
+
+  .btn-back-platform:hover { text-decoration: underline; }
+
+  /* ── FAQ ── */
+  .faq-list {
+    max-width: 700px;
+    margin: 0 auto 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 4px 20px;
+    transition: border-color .2s;
+  }
+
+  .faq-item[open] { border-color: rgba(255,215,0,.5); }
+
+  .faq-item summary {
+    cursor: pointer;
+    padding: 16px 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: .9rem;
+    font-weight: 700;
+    color: var(--white);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .faq-item summary::-webkit-details-marker { display: none; }
+
+  .faq-item summary::after {
+    content: '+';
+    color: var(--gold);
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .faq-item[open] summary::after { content: '−'; }
+
+  .faq-item p {
+    padding: 0 0 18px;
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: .9rem;
+    line-height: 1.55;
+  }
+
+  /* ── THEME TOGGLE ── */
+  .theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 999;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid var(--border-soft);
+    background: var(--surface);
+    color: var(--white);
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(27,35,56,.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .2s, background .3s, border-color .3s;
+  }
+
+  .theme-toggle:hover { transform: scale(1.08); }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Changer de thème">🌙</button>
+
+<!-- PLATFORM GATE : étape 1, à choisir avant l'admin -->
+<div id="platformGate">
+  <div class="gate-hero">
+    <span class="gate-hero-icon">🎮</span>
+    <h1 class="gate-hero-title">Bienvenue dans <span>eFootball Coin Shop</span></h1>
+    <p class="gate-hero-tagline">La boutique n°1 de vente de Coins eFootball à Madagascar</p>
+    <div class="badge-row">
+      <span class="badge">✅ Fiable</span>
+      <span class="badge">⚡ Rapide</span>
+      <span class="badge gold-badge">🔐 Sécurisé</span>
+      <span class="badge gold-badge">🏆 Certifié Madagascar</span>
+    </div>
+  </div>
+
+  <div class="rules-box">
+    <h3>📋 Règlement</h3>
+    <p class="rules-highlight">⚠️ Paiement à l'avance obligatoire avant toute livraison de coins</p>
+    <ul>
+      <li>Le paiement doit être effectué avant que l'admin ne traite la commande.</li>
+      <li>Aucune commande n'est traitée sans confirmation du paiement.</li>
+      <li>Vérifiez toujours que vous parlez à un admin certifié (liste officielle du site).</li>
+      <li>Aucun remboursement une fois les coins livrés.</li>
+      <li>Gardez une preuve de transaction (capture d'écran) en cas de litige.</li>
+    </ul>
+
+    <details class="certified-admins-toggle">
+      <summary>👥 Voir la liste des admins certifiés (<span id="certifiedAdminsCount"></span>)</summary>
+      <ul class="certified-admins-list" id="certifiedAdminsList"></ul>
+    </details>
+  </div>
+
+  <div class="gate-select-card">
+    <h2 class="gate-title">📱 Choisissez votre Plateforme</h2>
+    <p class="gate-subtitle">Sélectionnez votre plateforme de jeu pour voir les admins disponibles</p>
+    <div class="platform-list" id="platformList"></div>
+  </div>
+</div>
+
+<!-- ADMIN GATE : étape 2, à choisir avant d'entrer sur le site -->
+<div id="adminGate" style="display:none;">
+  <div class="gate-hero">
+    <span class="gate-hero-icon">🎮</span>
+    <h1 class="gate-hero-title">Bienvenue dans <span>eFootball Coin Shop</span></h1>
+    <p class="gate-hero-tagline">La boutique n°1 de vente de Coins eFootball à Madagascar</p>
+    <div class="badge-row">
+      <span class="badge">✅ Fiable</span>
+      <span class="badge">⚡ Rapide</span>
+      <span class="badge gold-badge">🔐 Sécurisé</span>
+      <span class="badge gold-badge">🏆 Certifié Madagascar</span>
+    </div>
+  </div>
+
+  <div class="gate-select-card">
+    <button class="btn-back-platform" onclick="backToPlatform()">← Changer de plateforme</button>
+    <h2 class="gate-title">🛡️ Choisissez votre Admin</h2>
+    <p class="gate-subtitle" id="adminGateSubtitle">Sélectionnez un vendeur certifié pour continuer vers la boutique</p>
+
+    <div class="admin-select-wrap">
+      <div class="custom-select" id="customSelect" onclick="toggleAdminDropdown(event)">
+        <span class="custom-select-avatar" id="customSelectAvatar">👤</span>
+        <span class="custom-select-label" id="customSelectLabel">-- Sélectionnez un admin --</span>
+        <span class="custom-select-arrow" id="customSelectArrow">▾</span>
+      </div>
+      <div class="custom-select-options" id="customSelectOptions"></div>
+      <button class="btn-validate-admin" onclick="chooseAdminFromSelect()">✅ VALIDER ET ENTRER</button>
+    </div>
+  </div>
+</div>
+
+<!-- SITE PRINCIPAL : caché tant qu'aucun admin n'est choisi -->
+<div id="mainSite">
+
+<!-- HEADER -->
+<header>
+  <div class="logo-ring">
+    <span class="logo-icon">🎮</span>
+    <div>
+      <h1 style="font-size:clamp(1.4rem, 5vw, 2.6rem);">Vente Coins <span>efootball</span> Madagascar</h1>
+    </div>
+  </div>
+  <p class="tagline">⚡ eFootball Coins ⚡</p>
+  <div class="badge-row">
+    <span class="badge">✅ Fiable</span>
+    <span class="badge">⚡ Rapide</span>
+    <span class="badge gold-badge">🔐 Sécurisé</span>
+    <span class="badge gold-badge">🏆 Certifié Madagascar</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- STANDARD OFFERS -->
+  <h2 class="section-title">🪙 OFFRES DISPONIBLES</h2>
+  <div class="cards-grid" id="offerCards"></div>
+
+  <div class="divider"></div>
+
+  <!-- PROMO OFFERS -->
+  <h2 class="section-title" style="color:var(--red);">🔥 PROMO SPÉCIALE</h2>
+  <div class="cards-grid" id="promoCards"></div>
+
+  <!-- ADMIN SÉLECTIONNÉ -->
+  <p class="selected-admin-bar">Admin sélectionné : <b id="selectedAdminName"></b><a id="selectedAdminFb" href="#" target="_blank" rel="noopener">Facebook ↗</a></p>
+  <button class="btn-back-platform btn-change-offer" onclick="backToStart()">← Changer d'offre / d'admin</button>
+
+  <!-- CONTACT -->
+  <div class="contact-bar" onclick="openQuickContact()">
+    <span class="wa-icon">💬</span>
+    <div class="contact-text">
+      <p>Commande rapide sur WhatsApp</p>
+      <p>034 42 213 21</p>
+    </div>
+    <span>→</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FAQ -->
+  <h2 class="section-title">❓ FAQ</h2>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>Comment ça marche ?</summary>
+      <p>Choisissez votre plateforme, sélectionnez un admin certifié, choisissez votre offre de coins puis contactez l'admin sur WhatsApp. Une fois le paiement effectué, vos coins vous sont livrés.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Combien de temps pour recevoir mes coins ?</summary>
+      <p>En général entre 5 et 15 minutes après confirmation du paiement, selon la disponibilité de l'admin.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Que faire si l'admin ne répond pas ?</summary>
+      <p>Patientez quelques minutes puis réessayez. Si besoin, revenez en arrière et choisissez un autre admin certifié dans la liste.</p>
+    </details>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Vente Coins efootball Madagascar by Nasaina · Tous droits réservés
+</footer>
+
+</div>
+<!-- /mainSite -->
+
+<script>
+/* ── ADMINS : 1 admin = 1 numéro WhatsApp + 1 lien Facebook ── */
+/* ⚠️ Remplace "whatsapp" (format 261XXXXXXXXX) et "facebook" (lien vide pour l'instant) pour chaque admin */
+const admins = [
+  { name: "Fandresena Sarobidy Andrianantenaina", whatsapp: "261389772860",  facebook: "https://www.facebook.com/a.fandresena.sarobidy", platforms: ["android"] },
+  { name: "Fabio WII",                            whatsapp: "261382724582",  facebook: "https://www.facebook.com/fabio.wll", platforms: ["android"] },
+  { name: "Nick Bryan",                           whatsapp: "261387547075",  facebook: "https://www.facebook.com/Nbryan43", platforms: ["android", "steam"] },
+  { name: "Hasina Asminn",                        whatsapp: "261347384717",  facebook: "https://www.facebook.com/profile.php?id=61578152445208", platforms: ["android"] },
+  { name: "Tsihoarana Harifidy",                  whatsapp: "261329019755",  facebook: "https://www.facebook.com/tsihoaranaharifidy", platforms: ["android", "iphone"] },
+  { name: "Eloi Issam",                           whatsapp: "261342216817",  facebook: "https://www.facebook.com/is.eloi06", platforms: ["android"] },
+  { name: "Nivoaly Kevin",                        whatsapp: "261377526642",  facebook: "https://www.facebook.com/profile.php?id=61571020957985", platforms: ["android"] },
+  { name: "Rakotondrandria Nasaina",              whatsapp: "261344221321",  facebook: "https://www.facebook.com/Plunderer.lenasa", platforms: ["android"] },
+  { name: "Rabenarivo Solonasolo",                whatsapp: "261338576889",  facebook: "https://www.facebook.com/profile.php?id=61583539024697", platforms: ["android"] },
+  { name: "Valisoa Rajaonarison",                 whatsapp: "261386307857",  facebook: "https://www.facebook.com/Valisoa.Rajaonarison7", platforms: ["android", "iphone"] },
+  { name: "Nathan Razafindratsira",               whatsapp: "261378790822",  facebook: "https://www.facebook.com/Razafindratsira11", platforms: ["android", "iphone", "steam"] },
+  { name: "Stephario ST",                         whatsapp: "261340000008",  facebook: "https://www.facebook.com/stepha.haruss", platforms: ["android"] },
+  { name: "Tiavina Rhack",                        whatsapp: "261381357782",  facebook: "https://www.facebook.com/tiavina.rakotomalala.927", platforms: ["android"] },
+];
+
+const platforms = [
+  { id: "android", label: "Android",     icon: "🤖" },
+  { id: "iphone",  label: "iPhone",      icon: "🍎" },
+  { id: "steam",   label: "Steam (PC)",  icon: "🖥️" },
+];
+
+let selectedPlatform = null;
+let selectedAdmin = null;
+
+const standardOffers = [
+  { coins: 130,   price: 7500   },
+  { coins: 300,   price: 13500  },
+  { coins: 550,   price: 23000  },
+  { coins: 750,   price: 31000  },
+  { coins: 1040,  price: 42000  },
+  { coins: 2130,  price: 82000  },
+  { coins: 3250,  price: 123000 },
+  { coins: 5700,  price: 220000 },
+  { coins: 12000, price: 399000 },
+];
+
+const promoOffers = [
+  { coins: 260,  price: 7500  },
+  { coins: 840,  price: 24500 },
+  { coins: 1630, price: 45000 },
+];
+
+function formatPrice(p) {
+  return p.toLocaleString('fr-FR') + ' Ar';
+}
+
+function initials(name) {
+  return name.split(' ').filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+}
+
+function openWhatsApp(msg) {
+  if (!selectedAdmin) return;
+  const url = `https://wa.me/${selectedAdmin.whatsapp}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+function openQuickContact() {
+  const platformLabel = selectedPlatform ? selectedPlatform.label : 'Non précisée';
+  const msg = `Bonjour! Je voudrais acheter des coins eFootball.\n📱 Plateforme : ${platformLabel}`;
+  openWhatsApp(msg);
+}
+
+function buyNow(coins, price) {
+  const platformLabel = selectedPlatform ? selectedPlatform.label : 'Non précisée';
+  const msg = `🎮 *Vente Coins efootball Madagascar*\n\nBonjour ${selectedAdmin.name} ! Je souhaite acheter :\n\n🪙 *${coins.toLocaleString()} Coins eFootball*\n📱 *Plateforme : ${platformLabel}*\n💰 Prix : *${price.toLocaleString('fr-FR')} Ar*\n\nMerci de confirmer ma commande ! ✅`;
+  openWhatsApp(msg);
+}
+
+function buildCard(offer, isPromo) {
+  const div = document.createElement('div');
+  div.className = 'coin-card' + (isPromo ? ' promo' : '');
+  div.innerHTML = `
+    ${isPromo ? '<span class="promo-label">PROMO</span>' : ''}
+    <span class="coin-icon">🪙</span>
+    <div class="coin-amount">${offer.coins.toLocaleString()}</div>
+    <div class="coin-label">eFootball Coins</div>
+    <div class="coin-price"><span class="currency">Ar </span>${offer.price.toLocaleString('fr-FR')}</div>
+    <div class="buy-row">
+      <button class="btn-buy" onclick="buyNow(${offer.coins}, ${offer.price})">
+        💬 ACHETER SUR WHATSAPP
+      </button>
+      <button class="btn-fb" onclick="openFacebook()" title="Contacter sur Facebook">f</button>
+    </div>
+  `;
+  return div;
+}
+
+function renderCards() {
+  const sc = document.getElementById('offerCards');
+  const pc = document.getElementById('promoCards');
+  sc.innerHTML = ''; pc.innerHTML = '';
+  standardOffers.forEach(o => sc.appendChild(buildCard(o, false)));
+  promoOffers.forEach(o => pc.appendChild(buildCard(o, true)));
+}
+
+function renderSellers() {
+  const grid = document.getElementById('sellersGrid');
+  grid.innerHTML = '';
+  admins.forEach(admin => {
+    const div = document.createElement('div');
+    div.className = 'seller-card';
+    const fbHref = admin.facebook && admin.facebook.trim() ? admin.facebook : '#';
+    div.innerHTML = `
+      <a class="fb-icon" href="${fbHref}" target="_blank" rel="noopener" style="text-decoration:none;color:white;">f</a>
+      <span class="seller-name">${admin.name}</span>
+      <span class="verified-icon">✔</span>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+/* ── ÉCRAN DE SÉLECTION D'ADMIN ── */
+function openFacebook() {
+  if (!selectedAdmin) return;
+  if (selectedAdmin.facebook && selectedAdmin.facebook.trim()) {
+    window.open(selectedAdmin.facebook, '_blank');
+  } else {
+    alert('Lien Facebook non renseigné pour cet admin pour le moment.');
+  }
+}
+
+let pendingAdminIndex = null;
+let filteredAdmins = [];
+
+function renderPlatformList() {
+  const box = document.getElementById('platformList');
+  box.innerHTML = platforms.map(p => {
+    const count = admins.filter(a => a.platforms.includes(p.id)).length;
+    return `
+      <div class="platform-option" onclick="choosePlatform('${p.id}')">
+        <span class="platform-icon">${p.icon}</span>
+        <div class="platform-info">
+          <div class="platform-name">${p.label}</div>
+          <div class="platform-count">${count} admin${count > 1 ? 's' : ''} disponible${count > 1 ? 's' : ''}</div>
+        </div>
+        <span class="platform-arrow">→</span>
+      </div>
+    `;
+  }).join('');
+}
+
+function choosePlatform(platformId) {
+  selectedPlatform = platforms.find(p => p.id === platformId);
+  filteredAdmins = admins
+    .filter(a => a.platforms.includes(platformId))
+    .sort((a, b) => a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' }));
+
+  pendingAdminIndex = null;
+  document.getElementById('customSelectLabel').textContent = '-- Sélectionnez un admin --';
+  document.getElementById('customSelectLabel').classList.add('placeholder');
+  document.getElementById('customSelectAvatar').textContent = '👤';
+  document.getElementById('adminGateSubtitle').textContent =
+    `Vendeurs certifiés disponibles sur ${selectedPlatform.label}`;
+
+  populateAdminSelect();
+
+  document.getElementById('platformGate').style.display = 'none';
+  document.getElementById('adminGate').style.display = 'flex';
+}
+
+function backToPlatform() {
+  document.getElementById('adminGate').style.display = 'none';
+  document.getElementById('platformGate').style.display = 'flex';
+}
+
+function backToStart() {
+  selectedAdmin = null;
+  selectedPlatform = null;
+  document.getElementById('mainSite').style.display = 'none';
+  document.getElementById('platformGate').style.display = 'flex';
+  window.scrollTo(0, 0);
+}
+
+function populateAdminSelect() {
+  const optionsBox = document.getElementById('customSelectOptions');
+  optionsBox.innerHTML = filteredAdmins.map((admin, i) => `
+    <div class="custom-select-option" data-index="${i}" onclick="pickAdminOption(${i})">
+      <span class="opt-avatar">${initials(admin.name)}</span>
+      <span class="opt-name">${admin.name}</span>
+      <span class="opt-check">✔</span>
+    </div>
+  `).join('');
+}
+
+function toggleAdminDropdown(e) {
+  e.stopPropagation();
+  const box = document.getElementById('customSelect');
+  const options = document.getElementById('customSelectOptions');
+  const isOpen = options.classList.contains('open');
+  if (isOpen) {
+    options.classList.remove('open');
+    box.classList.remove('open');
+  } else {
+    options.classList.add('open');
+    box.classList.add('open');
+  }
+}
+
+document.addEventListener('click', (e) => {
+  const wrap = document.getElementById('customSelect');
+  const options = document.getElementById('customSelectOptions');
+  if (options && !options.contains(e.target) && wrap && !wrap.contains(e.target)) {
+    options.classList.remove('open');
+    wrap.classList.remove('open');
+  }
+});
+
+function pickAdminOption(index) {
+  pendingAdminIndex = index;
+  const admin = filteredAdmins[index];
+
+  document.getElementById('customSelectLabel').textContent = admin.name;
+  document.getElementById('customSelectLabel').classList.remove('placeholder');
+  document.getElementById('customSelectAvatar').textContent = initials(admin.name);
+
+  document.querySelectorAll('.custom-select-option').forEach(opt => {
+    opt.classList.toggle('selected', parseInt(opt.dataset.index, 10) === index);
+  });
+
+  document.getElementById('customSelectOptions').classList.remove('open');
+  document.getElementById('customSelect').classList.remove('open');
+}
+
+function chooseAdminFromSelect() {
+  if (pendingAdminIndex === null) { alert('Merci de choisir un admin dans la liste.'); return; }
+  chooseAdmin(pendingAdminIndex);
+}
+
+function chooseAdmin(index) {
+  selectedAdmin = filteredAdmins[index];
+  document.getElementById('adminGate').style.display = 'none';
+  document.getElementById('mainSite').style.display = 'block';
+
+  document.getElementById('selectedAdminName').textContent = selectedAdmin.name;
+  const fbLink = document.getElementById('selectedAdminFb');
+  if (selectedAdmin.facebook && selectedAdmin.facebook.trim()) {
+    fbLink.href = selectedAdmin.facebook;
+    fbLink.style.display = 'inline';
+  } else {
+    fbLink.style.display = 'none';
+  }
+
+  const contactNumberEl = document.querySelector('.contact-text p:last-child');
+  if (contactNumberEl) {
+    const local = selectedAdmin.whatsapp.replace(/^261/, '0').replace(/(\d{3})(\d{2})(\d{3})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
+    contactNumberEl.textContent = local;
+  }
+
+  window.scrollTo(0, 0);
+}
+
+function toggleTheme() {
+  const isDark = document.body.classList.toggle('dark-mode');
+  document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+}
+
+function renderCertifiedAdmins() {
+  const list = document.getElementById('certifiedAdminsList');
+  const countEl = document.getElementById('certifiedAdminsCount');
+  const sorted = [...admins].sort((a, b) => a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' }));
+  countEl.textContent = sorted.length;
+  list.innerHTML = sorted.map(a => `<li>${a.name}</li>`).join('');
+}
+
+renderPlatformList();
+renderCards();
+renderCertifiedAdmins();
+</script>
+</body>
+</html>
